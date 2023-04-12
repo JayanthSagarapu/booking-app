@@ -16,13 +16,13 @@ function onsubmit(e){
 
     const li = document.createElement('li');
 
-    li.className = 'list-group-item';
+    li.className = 'list-group-item align-self-center w-75 mb-1 bg-secondary';
 
     li.append(document.createTextNode(nameInput)," - ",document.createTextNode(emailInput)," - ",document.createTextNode(phoneInput))
 
     list.appendChild(li)
 
-    localStorage.setItem('list',JSON.stringify({name:nameInput,email:emailInput,number:phoneInput}))
+    localStorage.setItem(nameInput ,JSON.stringify({name:nameInput,email:emailInput,number:phoneInput}))
 
 
 }
