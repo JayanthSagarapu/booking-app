@@ -46,12 +46,31 @@ function addItem(e){
     function removelistitem(){
         localStorage.removeItem(obj.name)
         list.removeChild(li)
+        
     };
-    
+
     li.appendChild(delbtn);
     
     list.appendChild(li);
 
+    //add edit button to list items
+    const editbtn =document.createElement('button');
+    editbtn.className = 'btn btn-sm float-right mr-2 edit';
+    editbtn.textContent = 'Edit';
+
+    editbtn.addEventListener('click',edititem)
+    function edititem(){
+        
+        localStorage.removeItem(obj.name)
+        username.value = obj.name;
+        phone.value = obj.phone;
+        email.value = obj.email;
+    }
+
+    li.append(editbtn)
+
+    //reset(emptying) input fields
+    form.reset()
 }
 
 
@@ -60,7 +79,10 @@ function deletelastItem(e){
 
     const last = list.lastChild;
     list.removeChild(last);
+    
 }
+
+
 
 
 
