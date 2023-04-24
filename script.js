@@ -10,7 +10,7 @@ submitbtn.addEventListener('click',addItem) ;
 
 deletebtn.addEventListener('click',deletelastItem);
 
-    const nameInput = username.value;
+const nameInput = username.value;
     const emailInput = email.value;
     const phoneInput = phone.value;
 
@@ -21,10 +21,21 @@ deletebtn.addEventListener('click',deletelastItem);
     }
 
 function addItem(e){
-    e.preventDefault()
+    e.preventDefault();
+
+    const nameInput = username.value;
+    const emailInput = email.value;
+    const phoneInput= phone.value;
+
+    const obj={
+        name : nameInput,
+        email : emailInput,
+        phone : phoneInput,
+    }
+
     
     axios
-    .post("https://crudcrud.com/api/74c0846e72ff43ba972ea16965a6aacd/bookingData",obj)
+    .post("https://crudcrud.com/api/1a669d431e04425dbc161736b38091ba/bookingData",obj)
           .then((res) => {
             ShowOnScreen(res.data);
             console.log(res);
@@ -60,7 +71,7 @@ function addItem(e){
           function removelistitem(e) {
             e.preventDefault()
             // localStorage.removeItem(obj.name);
-            axios.delete(`https://crudcrud.com/api/74c0846e72ff43ba972ea16965a6aacd/bookingData/${X._id}`)
+            axios.delete(`https://crudcrud.com/api/1a669d431e04425dbc161736b38091ba/bookingData/${X._id}`)
               .then((response)=>{console.log('deleted'),response})
               .catch((err)=>{console.log(err)})
             
@@ -77,12 +88,22 @@ function addItem(e){
           editbtn.textContent = "Edit";
 
           editbtn.addEventListener("click", edititem);
-          function edititem() {
+          function edititem(obj) {
             // localStorage.removeItem(obj.name);
             list.removeChild(li);
             username.value = X.name;
             phone.value = X.phone;
             email.value = X.email;
+
+            axios.delete(`https://crudcrud.com/api/1a669d431e04425dbc161736b38091ba/bookingData/${X._id}`)
+            .then((response)=>{console.log('deleted'),response})
+            .catch((err)=>{console.log(err)})
+
+            // axios.put(`https://crudcrud.com/api/1a669d431e04425dbc161736b38091ba/bookingData/${X._id}`,obj1)
+            // .then((response)=>{
+            //   console.log(response)
+            // })
+            // .catch((err)=>{console.log(err)})
           }
 
           li.append(editbtn);
@@ -91,8 +112,6 @@ function addItem(e){
           form.reset();
     }
 
-        
-          
         
         // window.addEventListener('DOMContentLoaded',reloadpage);
         // function reloadpage(){
@@ -107,14 +126,10 @@ function addItem(e){
         //   }
         // })
 
-    
-      
-
       window.addEventListener('DOMContentLoaded',reloadpage);
         function reloadpage(){
-          console.log('jay')
           axios
-          .get("https://crudcrud.com/api/74c0846e72ff43ba972ea16965a6aacd/bookingData")
+          .get("https://crudcrud.com/api/1a669d431e04425dbc161736b38091ba/bookingData")
           .then((response) => {
             for(var i=0; i< response.data.length;i++){
               ShowOnScreen(response.data[i])
