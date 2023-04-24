@@ -57,8 +57,12 @@ function addItem(e){
           delbtn.textContent = "Delete";
 
           delbtn.addEventListener("click", removelistitem);
-          function removelistitem() {
+          function removelistitem(e) {
+            e.preventDefault()
             // localStorage.removeItem(obj.name);
+            axios.delete(`https://crudcrud.com/api/74c0846e72ff43ba972ea16965a6aacd/bookingData/${X._id}`)
+              .then((response)=>{console.log('deleted'),response})
+              .catch((err)=>{console.log(err)})
             list.removeChild(li);
           }
 
