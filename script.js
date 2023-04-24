@@ -10,10 +10,6 @@ submitbtn.addEventListener('click',addItem) ;
 
 deletebtn.addEventListener('click',deletelastItem);
 
-
-
-function addItem(e){
-    e.preventDefault()
     const nameInput = username.value;
     const emailInput = email.value;
     const phoneInput = phone.value;
@@ -23,9 +19,12 @@ function addItem(e){
         email : emailInput,
         phone : phoneInput,
     }
+
+function addItem(e){
+    e.preventDefault()
     
     axios
-    .post("https://crudcrud.com/api/f24b832404dc46cf82fa8556947575d4/bookingData",obj)
+    .post("https://crudcrud.com/api/74c0846e72ff43ba972ea16965a6aacd/bookingData",obj)
           .then((res) => {
             ShowOnScreen(res.data);
             console.log(res);
@@ -33,6 +32,7 @@ function addItem(e){
           .catch((err) => {
             console.log(err);
           });
+}
 
     function ShowOnScreen(X) {
           //new li element
@@ -75,31 +75,52 @@ function addItem(e){
           function edititem() {
             // localStorage.removeItem(obj.name);
             list.removeChild(li);
-            username.value = obj.name;
-            phone.value = obj.phone;
-            email.value = obj.email;
+            username.value = X.name;
+            phone.value = X.phone;
+            email.value = X.email;
           }
 
           li.append(editbtn);
 
           //reset(emptying) input fields
           form.reset();
-        }
+    }
 
-        window.addEventListener('DOMContentLoaded',()=>{
-          const localStorageobj = localStorage;
-          const localStoragekeys = Object.keys(localStorageobj);
+        
+          
+        
+        // window.addEventListener('DOMContentLoaded',reloadpage);
+        // function reloadpage(){
+        //   const localStorageobj = localStorage;
+        //   const localStoragekeys = Object.keys(localStorageobj);
 
-          for(var i=0; i< localStoragekeys.length; i++){
-            const key = localStoragekeys[i];
-            const userDetailsStringValue = localStorageobj[key];
-            const userDetailsValueObj = JSON.parse(userDetailsStringValue);
-            ShowOnScreen(userDetailsValueObj);
-          }
-        })
+        //   for(var i=0; i< localStoragekeys.length; i++){
+        //     const key = localStoragekeys[i];
+        //     const userDetailsStringValue = localStorageobj[key];
+        //     const userDetailsValueObj = JSON.parse(userDetailsStringValue);
+        //     ShowOnScreen(userDetailsValueObj);
+        //   }
+        // })
 
     
-      }
+      
+
+      window.addEventListener('DOMContentLoaded',reloadpage);
+        function reloadpage(){
+          console.log('jay')
+          axios
+          .get("https://crudcrud.com/api/74c0846e72ff43ba972ea16965a6aacd/bookingData")
+          .then((response) => {
+            for(var i=0; i< response.data.length;i++){
+              ShowOnScreen(response.data[i])
+            }
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        }
 
 function deletelastItem(e){
     e.preventDefault();
