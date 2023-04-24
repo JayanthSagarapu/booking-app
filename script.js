@@ -86,6 +86,18 @@ function addItem(e){
           form.reset();
         }
 
+        window.addEventListener('DOMContentLoaded',()=>{
+          const localStorageobj = localStorage;
+          const localStoragekeys = Object.keys(localStorageobj);
+
+          for(var i=0; i< localStoragekeys.length; i++){
+            const key = localStoragekeys[i];
+            const userDetailsStringValue = localStorageobj[key];
+            const userDetailsValueObj = JSON.parse(userDetailsStringValue);
+            ShowOnScreen(userDetailsValueObj);
+          }
+        })
+
     
       }
 
