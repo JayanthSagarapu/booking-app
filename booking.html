@@ -19,16 +19,20 @@
     </header>
     <div>
       <div class="container card card-body w-75 mb-2 bg-white mt-2">
-        <form id="form">
+        <form
+          id="form"
+          action="#"
+          method="post"
+          onsubmit="addItem(event)"
+          class="align-self-center"
+        >
           Name:<input type="text" id="name" /> Email:
           <input type="text" id="email" /> Phone:
           <input type="text" id="phone" />
-          <input
-            type="button"
-            value="Submit"
-            class="btn border border-dark"
-            id="submit"
-          />
+          <button value="Submit" class="btn border border-dark" id="submit">
+            Submit
+          </button>
+
           <input
             type="button"
             value="Delete"

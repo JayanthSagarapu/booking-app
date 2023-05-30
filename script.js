@@ -1,36 +1,34 @@
 const username = document.querySelector("#name");
 const email = document.querySelector("#email");
 const phone = document.querySelector("#phone");
-const form = document.getElementById("form");
+// const form = document.getElementById("form");
 const list = document.getElementById("list");
-const submitbtn = document.getElementById("submit");
+// const submitbtn = document.getElementById("submit");
 const deletebtn = document.getElementById("del");
 
-submitbtn.addEventListener("click", addItem);
+// submitbtn.addEventListener("click", addItem);
 
-deletebtn.addEventListener("click", deletelastItem);
+// const nameInput = username.value;
+// const emailInput = email.value;
+// const phoneInput = phone.value;
 
-const nameInput = username.value;
-const emailInput = email.value;
-const phoneInput = phone.value;
+// const obj = {
+//   name: nameInput,
+//   email: emailInput,
+//   phone: phoneInput,
+// };
 
-const obj = {
-  name: nameInput,
-  email: emailInput,
-  phone: phoneInput,
-};
+function addItem(event) {
+  event.preventDefault();
 
-function addItem(e) {
-  e.preventDefault();
-
-  const nameInput = username.value;
-  const emailInput = email.value;
-  const phoneInput = phone.value;
+  const name = event.target.name.value;
+  const email = event.target.email.value;
+  const number = event.target.phone.value;
 
   const obj = {
-    name: nameInput,
-    email: emailInput,
-    phone: phoneInput,
+    name,
+    email,
+    number,
   };
 
   axios
@@ -47,18 +45,18 @@ function addItem(e) {
     });
 }
 
-function ShowOnScreen(X) {
+function ShowOnScreen(obj) {
   //new li element
   const li = document.createElement("li");
 
   li.className = "list-group-item align-self-center w-75 mb-1 bg-secondary";
 
   li.append(
-    document.createTextNode(X.name),
-    "-",
-    document.createTextNode(X.email),
-    "-",
-    document.createTextNode(X.phone)
+    document.createTextNode(obj.name),
+    " - ",
+    document.createTextNode(obj.email),
+    " - ",
+    document.createTextNode(obj.phone)
   );
 
   //add delete button to listitems
@@ -71,10 +69,9 @@ function ShowOnScreen(X) {
   delbtn.addEventListener("click", removelistitem);
   function removelistitem(e) {
     e.preventDefault();
-    // localStorage.removeItem(obj.name);
     axios
       .delete(
-        `https://crudcrud.com/api/a2f605b39d8f421b932c19cac7d9c78f/bookingData/${X._id}`
+        `https://crudcrud.com/api/a2f605b39d8f421b932c19cac7d9c78f/bookingData/${obj._id}`
       )
       .then((response) => {
         console.log("deleted"), response;
@@ -99,13 +96,13 @@ function ShowOnScreen(X) {
   function edititem(obj) {
     // localStorage.removeItem(obj.name);
     list.removeChild(li);
-    username.value = X.name;
-    phone.value = X.phone;
-    email.value = X.email;
+    username.value = obj.name;
+    phone.value = obj.phone;
+    email.value = obj.email;
 
     axios
       .delete(
-        `https://crudcrud.com/api/a2f605b39d8f421b932c19cac7d9c78f/bookingData/${X._id}`
+        `https://crudcrud.com/api/a2f605b39d8f421b932c19cac7d9c78f/bookingData/${obj._id}`
       )
       .then((response) => {
         console.log("deleted"), response;
@@ -114,7 +111,7 @@ function ShowOnScreen(X) {
         console.log(err);
       });
 
-    // axios.put(`https://crudcrud.com/api/a2f605b39d8f421b932c19cac7d9c78f/bookingData/${X._id}`,obj1)
+    // axios.put(`https://crudcrud.com/api/a2f605b39d8f421b932c19cac7d9c78fadd-user/${obj._id}`,obj1)
     // .then((response)=>{
     //   console.log(response)
     // })
@@ -156,6 +153,8 @@ function reloadpage() {
       console.log(err);
     });
 }
+
+deletebtn.addEventListener("click", deletelastItem);
 
 function deletelastItem(e) {
   e.preventDefault();
